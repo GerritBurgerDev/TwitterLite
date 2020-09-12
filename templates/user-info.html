@@ -1,0 +1,23 @@
+<!-- USER INFO -->
+<div id="user-info" class="card user-card">
+    <div class="card-body">
+        <img src="{{ avatar }}" class="avatar img-circle img-thumbnail" alt="avatar">
+        <div class="h5">@{{ user.username }}</div>
+        <div class="h7 text-muted">Fullname : {{ user.fullname }}</div>
+        <div class="h7">
+            {{ bio }}
+        </div>
+    </div>
+
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="h6 text-muted">Followers</div>
+            <div id="followers" class="h5-user-info">{{ followers }}</div>
+        </li>
+        <li class="list-group-item">
+            <div class="h6 text-muted">Following</div>
+            <div id="following" class="h5-user-info">{{following}}</div>
+        </li>
+    </ul>
+</div>
+<!-- USER INFO -->

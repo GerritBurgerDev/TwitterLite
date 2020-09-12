@@ -1,0 +1,83 @@
+<head>
+    <link rel="shortcut icon" href="static/img/logo-black.png">
+    <link href="{{ url_for('static', filename='css/sign-up.css') }}" rel="stylesheet" id="bootstrap-css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+</head>
+<!------ Include the above in your HEAD tag ---------->
+
+<body>   
+    {% if error %}
+    <div class="alert alert-danger" role="alert">
+        <p><strong>Error:</strong> {{ error }}</p>
+    </div>
+    {% endif %}
+    
+    <div class="container register">
+        <div class="row">
+            <div class="col-md-3 register-left">
+                <img src="static/img/logo-white.png" alt=""/>
+                <h3>Welcome</h3>
+                <p>You are 30 seconds away from earning your own money!</p>
+                <input type="submit" name="" value="Login" onclick="window.location.href='login.html'"/><br/>
+            </div>
+            
+            <div class="col-md-9 register-right">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <h3 class="register-heading">Register for Twitter</h3>
+                        <div class="row register-form">
+                            <div class="col-md-6">
+				                <form action="{{ url_for('signup') }}" method="post">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Username *" value="" name="username"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Full Name *" value="" name="full_name"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="Password *" value="" name="password"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control"  placeholder="Confirm Password *" value="" name="confirm_password"/>
+                                </div>
+                                <div class="form-group">
+                                    <div class="maxl">
+                                        <label class="radio inline"> 
+                                            <input type="radio" name="gender" value="male" checked >
+                                            <span> Male </span> 
+                                        </label>
+                                        <label class="radio inline"> 
+                                            <input type="radio" name="gender" value="female">
+                                            <span>Female </span> 
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control" name="email" placeholder="Your Email *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" minlength="10" maxlength="10" name="phone" class="form-control" placeholder="Your Phone *" value="" />
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control" >
+                                        <option class="hidden"  selected disabled>Please select your Security Question</option>
+                                        <option>What is your Birthdate?</option>
+                                        <option>What is Your old Phone Number</option>
+                                        <option>What is your Pet Name?</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" class="form-control" name="answer" placeholder="Enter Your Answer *" value="" />
+                                </div>
+                                <input type="submit" class="btnRegister"  value="Register"/>
+				                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>      
+    </div>
+</body>

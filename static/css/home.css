@@ -1,0 +1,227 @@
+html {
+    height: 100%;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 5%;
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem !important;
+    min-height: 100%;
+    font-family: 'Arial', 'sans-serif';
+}
+
+.gedf-main {
+    flex: 0 0 40% !important;
+}
+
+.cards-left {
+    margin-left: 5%;
+}
+
+.avatar-post {
+    position: relative;
+    top: -5px;
+    display: block !important;
+    width: 60px !important;
+    height: 60px !important;
+}
+
+.card-pull-right {
+    position: relative !important;
+    display: flex;
+    float: right;
+}
+
+.likes-class {
+    padding-left: 10%;
+}
+
+.btn-follow {
+    position: relative;
+    float: left;
+    left: 5%;
+    font-size:80% !important;
+}
+
+.suggestion-right {
+    display: inline-block;
+}
+
+.back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    box-shadow: 0 6px 15px -10px #999;    
+}
+
+.container-fluid {
+    padding-top: 100px;
+}
+
+.user-card {
+    position: relative;
+    top: -80px;
+    box-shadow: 0 6px 15px -10px #999;
+}
+
+.below-user {
+    position: relative;
+    top: -63px;
+}
+
+.back-img {
+    width: 100vw;
+    height: 400px;
+}
+
+.col-md-6 {
+    padding-top: 12%;
+}
+
+.on-the-right {
+    padding-top: 12%;
+}
+
+.btn-like {
+    margin-right: 10px !important;
+}
+
+.btn-share {
+    margin-left: 10px !important;
+}
+
+.username {
+    position: relative;
+    float: left;
+    background: none !important;
+    border: none; 
+    padding-left: 5% !important;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.username:hover {
+    color: rgb(77, 178, 224);
+}
+
+footer {
+    width: 100vw;
+    bottom: 0;
+    margin-top: 6%;
+}
+
+.form-control {
+    width: 100% !important;
+}
+
+.btn:focus, .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+a {
+    color: rgb(77, 178, 224) !important;
+}
+
+.avatar {
+    float: left;
+    margin-right: 10px;
+    height: 100px !important;
+}
+
+.a-footer {
+    color: white !important;
+}
+
+.a-footer:hover {
+    color: rgb(77, 178, 224) !important;
+}
+
+.text {
+    padding-top: 3%;
+    padding-bottom: 3%;
+}
+
+.list-group-item {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.suggestion {
+    display: flex;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.avatar-suggestion {
+    width: 20% !important;
+}
+
+.h6 {
+    position: relative !important;
+    padding-left: 5% !important;
+    font-weight: 300 !important;
+}
+
+.hashtag {
+    background: none !important;
+    border: none; 
+    padding: 0 !important;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.hashtag:hover {
+    color: rgb(77, 178, 224);
+}
+
+.h6-follower {
+    position: relative;
+    top: 15px;
+}
+
+.h5-user-info {
+    position: relative;
+    clear: both;
+    padding-left: 5%;
+    padding-bottom: 2%;
+}
+
+.badge-primary {
+    background-color: rgb(77, 178, 224) !important;
+    border-color: rgb(77, 178, 224) !important;
+}
+
+.btn-primary {
+    font-size:80% !important;
+    background-color: rgb(77, 178, 224) !important;
+    border-color: rgb(77, 178, 224) !important;
+}
+
+.btn-primary:hover {
+    background-color: rgb(241, 241, 241) !important;
+    border-color: rgb(241, 241, 241) !important;
+    color: #313131 !important;
+    transition:all 0.3s ease-in-out;
+    box-shadow: 0 1px 3px rgba(0,0,0, 0.14), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.card-link {
+    color: #808080 !important;
+}
+
+.card-link:hover {
+    color: rgb(77, 178, 224) !important;
+}
+
+.btn {
+  font-family: 'sans-serif' !important;
+  letter-spacing: 0 !important;
+}
+
+.btn-link {
+    color: rgb(77, 178, 224) !important;
+    /* color: rgb(157, 87, 223) !important; */
+}

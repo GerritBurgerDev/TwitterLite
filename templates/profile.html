@@ -1,0 +1,468 @@
+<html>
+    <head>
+        <title>{{ username }}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <link rel="shortcut icon" href="static/img/logo-black.png">
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+        <link href="{{ url_for('static', filename='css/new-age.min.css') }}" rel="stylesheet">
+    
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+        <script src="{{ url_for('static', filename='js/like.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/follow.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/hashtags.js') }}"></script>
+    
+    </head>
+    
+    {% include 'nav.html' %}
+    
+    {% block content %}
+    <body>
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                <p><strong>Error:</strong> {{ error }}</p>
+            </div>
+        {% endif %}
+        {% if success %}
+            <div class="alert alert-success" role="success">
+                <p><strong>Success:</strong> {{ success }}</p>
+            </div>
+        {% endif %}
+        
+        <div class="back">
+            <img class="back-img" src="static/img/back.jpg">
+        </div>
+        
+        <div class="container-fluid gedf-wrapper">
+            <div class="row">
+        
+                <div class="col-md-3 cards-left"><!--left col-->
+                    <br>
+        
+                    <div class="card gedf-card user-card">
+                        <div class="card-body">
+                            <div class="text-center">
+                                <h2>{{ username }}</h2>
+                                <img src="{{ avatar }}" class="avatar img-circle img-thumbnail" alt="avatar">
+                                <h6>Upload a different photo...</h6>
+                                <form action="{{ url_for('profile') }}" method=post enctype=multipart/form-data>
+                                    <input type="file" class="text-center center-block file-upload" name="file" enctype="multipart/form-data">
+                                    <input class="upload-btn btn btn-primary" type="submit" name="btn" value="Upload file">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br>
+                
+                    <div class="below-user list-group">
+                        <div class="list-group-item text-muted"> 
+                            <div class="text">
+                                Website <i class="fa fa-link fa-1x"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="list-group-item text-right">
+                            <div class="suggestion">
+                                <a class="pull-left" href="home.html">
+                                    Splurg.com
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <br>
+                
+                    <ul class="below-user list-group">
+                        <li class="list-group-item text-muted"> 
+                            <div class="text">
+                                Activity <i class="fas fa-chart-line"></i>
+                            </div>
+                        </li>
+                        
+                        <li class="list-group-item text-right">
+                            <span class="pull-left">
+                                <button data-toggle="modal" data-target="#myModal-Retweets" name="user" value="" class="username pull-left">Retweets</button>
+                            </span> {{ count_retweets_for_user }} 
+                        </li>
+                        <li class="list-group-item text-right">
+                            <span class="pull-left">
+                                <strong>Likes on your posts</strong>
+                            </span> {{ count_likes_for_user }}
+                        </li>
+                        <li class="list-group-item text-right">
+                            <span class="pull-left"><strong>Tweets</strong>
+                            </span> {{num_tweets}} 
+                        </li>
+                        <li class="list-group-item text-right">
+                            <button data-toggle="modal" data-target="#myModal" name="user" value="" class="username pull-left">Followers</button>
+                            </span> {{num_followers}} 
+                        </li>
+                        <li class="list-group-item text-right">
+                                <button data-toggle="modal" data-target="#myModal-Following" name="user" value="" class="username pull-left">Following</button>
+                            </span> {{num_following}} 
+                        </li>
+                    </ul>
+        
+                    <br>
+                    
+                    <div class="below-user list-group">     
+                        <div class="list-group-item text-muted"> 
+                            <div class="text">
+                                <i class="fa fa-at" style="font-weight:700;"></i>
+                                Follow suggestions
+                            </div>
+                        </div>
+        
+                        {% for i in range(num_suggested_users) %}
+                        <div class="suggestion-{{i}} list-group-item text-right">
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    <div class="suggestion pull-left">
+                                        <img src="{{ suggested_users_avatars[i] }}" class="avatar-suggestion img-circle img-thumbnail" alt="avatar">
+                                        <div class="suggestion-right">
+                                            <form method="post" action="{{ url_for('user') }}">
+                                                <button type="submit" name="user" value="{{suggested_users[i]}}" class="username h6 h6-suggestion">@{{suggested_users[i]}}</button>
+                                            </form>
+                                            <form>
+                                                <button type="submit" class="btn-follow btn btn-primary follow-btn" id="follow-btn{{i}}" mem_id="{{i}}" value="{{suggested_users[i]}}">Follow</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+                    </div>
+                
+                </div><!--/col-3-->
+        
+                <div class="col-md-6 gedf-main">
+                
+                    <hr>
+                
+                    <div class="tab-content">
+                    
+                        <div class="tab-pane active" id="home">
+                            <form class="form" action="{{ url_for('profile') }}" method="post">
+                                    <div class="form-group">
+                                        <div class="col-xs-6">
+                                            <label for="username"><h4>Username</h4></label>
+            
+                                            <input type="text" class="form-control" name="username" id="username" placeholder="{{ username }}" title="enter your username if any.">
+                                        </div>
+                                    </div>
+                            
+                                <div class="form-group">                          
+                                    <div class="col-xs-6">
+                                        <label for="email"><h4>Bio</h4></label>
+                                    
+                                        <textarea type="text" class="form-control" name="bio" id="bio" placeholder="{{ bio }}" title="Enter your bio."></textarea>
+                                    </div>
+                                </div>
+                            
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="first_name"><h4>Full name</h4></label>
+        
+                                        <input type="text" class="form-control" name="full_name" id="first_name" placeholder="{{ user.fullname }}" title="enter your full name if any.">
+                                    </div>
+                                </div>
+                    
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="mobile"><h4>Mobile</h4></label>
+                                        
+                                        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="{{ user.phone }}" title="enter your mobile number if any.">
+                                    </div>
+                                </div>
+        
+                                <div class="form-group">                          
+                                    <div class="col-xs-6">
+                                        <label for="email"><h4>Email</h4></label>
+        
+                                        <input type="email" class="form-control" name="email" id="email" placeholder="{{ user.email }}" title="enter your email.">
+                                    </div>
+                                </div>
+        
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="password"><h4>Password</h4></label>
+        
+                                        <input type="password" class="form-control" name="password" id="password" placeholder="password" title="enter your password.">
+                                    </div>
+                                </div>
+        
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <label for="password2"><h4>Verify</h4></label>
+                                    
+                                        <input type="password" class="form-control" name="password2" id="password2" placeholder="password2" title="enter your password2.">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <div class="col-xs-12">
+                                        <br>
+                                        <input class="btn btn-primary" name="btn" type="submit" value="SAVE"><i class="glyphicon glyphicon-ok-sign"></i>
+                                        <button class="btn btn-primary" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                    </div>
+                                </div>
+                            </form>
+        
+                            <hr>
+        
+                            <!--- \\\\\\\ GET ALL TWEETS-->
+                            {% for i in range(num) %}
+                            <div class="card gedf-card">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="mr-2">
+                                                <img class="avatar-post img-circle img-thumbnail" width="90" src="{{ avatar }}">
+                                            </div>
+                                            <form class="ml-2" method="post" action="{{ url_for('user') }}">
+                                                <button type="submit" name="user" value="{{ username }}" class="username card-link h5 m-0">@{{ username }}</button>
+                                                <div class="h7 text-muted">{{ user.fullname }}</div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div class="card-body">
+                                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{"posted"}} {{hours[i]}} {{"H"}} {{mins[i]}} {{"M ago"}}</div>
+                                    <form method="post" action="{{ url_for('search') }}">
+                                        <p class="card-text">
+                                            {{tweets[i]}}
+                                        </p>
+                                    </form>
+                                </div>
+
+                                <div class="card-footer">
+                                    <form>
+                                        <button type="submit" name="like" value="{{ id[i] }}" class="btn-like username card-link" id="like-btn-{{i}}" mem_id="{{i}}"><i class="fas fa-heart"></i> {{ like_unlike[i] }}</button>
+                                    </form>
+                                    <button type="submit" name="button" value="comment" class="btn-comment username card-link"><i class="fa fa-comment"></i> Comment</button>
+                                    <button type="submit" name="button" value="share" class="btn-share username card-link"><i class="fa fa-mail-forward"></i> Share</button>
+                                    
+                                    <div class="card-pull-right h7 text-muted">
+                                        <div>
+                                            Likes:
+                                        </div>
+                                        <div class="likes-class" id="likes-{{i}}-0" value="{{ likes[i] }}">
+                                            {{ likes[i] }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- GET ALL TWEETS -->
+        
+                            <br>
+                            {% endfor %}
+
+                            <!--- \\\\\\\ GET ALL RETWEETS-->
+                            {% for i in range(num_retweets) %}
+                            <div class="card gedf-card">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <div class="mr-2">
+                                                <img class="avatar-post img-circle img-thumbnail" width="60" src="{{ retweet_avatars[i] }}">
+                                            </div>
+                                            <form class="ml-2" method="post" action="{{ url_for('user') }}">
+                                                <button type="submit" name="user" value="{{ retweet_users[i] }}" class="username card-link h5 m-0">@{{ retweet_users[i] }}</button>
+                                                <div class="h7 text-muted">{{ retweet_fullnames[i] }}</div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="card-body">
+                                    <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i> {{"posted"}} {{retweet_hours[i]}} {{"H"}} {{retweet_mins[i]}} {{"M ago"}}</div>
+                                    <form method="post" action="{{ url_for('search') }}">
+                                        <p class="card-text">
+                                            {{retweets[i]}}
+                                        </p>
+                                    </form>
+                                </div>
+
+                                <div class="card-footer">
+                                    <form>
+                                        <button type="submit" name="like" value="{{ retweet_ids[i] }}" class="btn-like username card-link" id="like-btn-{{num + i}}" mem_id="{{num + i}}"><i class="fas fa-heart"></i> {{ like_unlike[num + i] }}</button>
+                                    </form>
+                                    <button type="submit" name="button" value="comment" class="btn-share username card-link"><i class="fa fa-comment"></i> Comment</button>
+                                    <button type="submit" name="button" value="share" class="btn-share username card-link"><i class="fa fa-mail-forward"></i> Share</button>
+                                    
+                                    <div class="card-pull-right h7 text-muted">
+                                        <div>
+                                            Likes:
+                                        </div>
+                                        <div class="likes-class" id="likes-{{num + i}}-0" value="{{ likes[i] }}">
+                                            {{ likes[i] }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- GET ALL RETWEETS -->
+
+                            <br>
+                            {% endfor %}
+                        
+                        </div><!--/tab-pane-->
+                    </div><!--/col-9-->
+                </div>
+        
+                <div class="cards-right col-md-3">
+                    <br>
+                    <br>
+        
+                    <!-- POPULAR HASHTAGS -->
+                    <div class="card gedf-card">
+                        <div class="card-body">
+                            <h5 class="card-title">Popular Hashtags</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Check out what is trending on Splurg</h6>
+                            <form class="ml-2" method="post" action="{{ url_for('search') }}">
+                                {% for i in range(num_hashtags) %}
+                                <button type="submit" name="hashtag" value="{{hashtags[i]}}" class="hashtag card-text card-link">#{{hashtags[i]}}</button>
+                                <br>
+                                {% endfor %}
+                            </form>
+                        </div>
+                    </div>
+                    <!-- POPULAR HASHTAGS -->
+                </div>
+            </div><!-- row -->
+        </div>
+    
+    <!-- The Modal - Followers -->
+    <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+          
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">Followers</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                {% for i in range(num_followers) %}
+                <div class="suggestion pull-left">
+                    <img src="{{ get_followers_avatars[i] }}" class="avatar-suggestion img-circle img-thumbnail" alt="avatar">
+                    <div class="suggestion-right">
+                        <form method="post" action="{{ url_for('user') }}">
+                            <button type="submit" name="user" value="{{get_followers[i]}}" class="username h6 h6-follower">@{{get_followers[i]}}</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+            
+          </div>
+        </div>
+    </div>
+
+    <!-- The Modal - Following-->
+    <div class="modal" id="myModal-Following">
+        <div class="modal-dialog">
+            <div class="modal-content">
+            
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Following</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body">
+                {% for i in range(num_following) %}
+                <div class="suggestion pull-left">
+                    <img src="{{ get_following_avatars[i] }}" class="avatar-suggestion img-circle img-thumbnail" alt="avatar">
+                    <div class="suggestion-right">
+                        <form method="post" action="{{ url_for('user') }}">
+                            <button type="submit" name="user" value="{{get_following[i]}}" class="username h6 h6-follower">@{{get_following[i]}}</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+            
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="myModal-Retweets">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Following</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                {% for i in range(num_retweets_model) %}
+                <div class="suggestion pull-left">
+                    <img src="{{ retweet_avatars_model[i] }}" class="avatar-suggestion img-circle img-thumbnail" alt="avatar">
+                    <div class="suggestion-right">
+                        <form method="post" action="{{ url_for('user') }}">
+                            <button type="submit" name="user" value="{{retweet_users_model[i]}}" class="username h6 h6-follower">@{{retweet_users_model[i]}}</button>
+                        </form>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+
+            </div>
+        </div>
+    </div>
+    </body>
+    {% endblock %}
+
+<footer>
+    <div class="container">
+        <p>&copy; Splurg 2019. All Rights Reserved.</p>
+        <ul class="list-inline">
+        <li class="list-inline-item">
+            <a class="a-footer" href="#">Privacy</a>
+        </li>
+        <li class="list-inline-item">
+            <a class="a-footer" href="#">Terms</a>
+        </li>
+        <li class="list-inline-item">
+            <a class="a-footer" href="#">FAQ</a>
+        </li>
+        </ul>
+    </div>
+</footer>
+    
+</html>
